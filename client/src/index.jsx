@@ -16,8 +16,29 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+
+    $.ajax({
+      method: "POST",
+      url: 'http://localhost:1128/repos',
+      data: {term},
+      success: function(){console.log('u suceeeded trevs')},
+      error: function(){console.log("the ajax post request failed")}
+    })
   }
+
+
+    
+    // $.post('127.0.0.1:1128/repos', function(err, data){
+
+    //   if(err){
+    //     console.log("HELLO")
+    //     console.log("ERROR: ", err)
+    //   } else {
+    //     console.log("goodbye")
+    //     console.log("data or response: ", data)
+    //   }
+    // })
+  
 
   render () {
     return (<div>
@@ -27,5 +48,6 @@ class App extends React.Component {
     </div>)
   }
 }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
