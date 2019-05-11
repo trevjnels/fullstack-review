@@ -10,9 +10,9 @@ const RepoList = (props) => (
       return(
         <div key={repo._id}  className="repo flex flex-row">
 
-          <div className="stars">StarCount: {repo.stargazers_count}</div>
-          <div className="repoName" >RepoName: {repo.repoName}</div>
-          <div className="user" >UserName: {repo.userName}</div>
+          <div className="stars"><p>StarCount:</p> {repo.stargazers_count}</div>
+          <div className="repoName" ><p>RepoName:</p> {repo.repoName}</div>
+          <div className="user" ><p>UserName: </p> {repo.userName}</div>
           <div className="url"> <a href={repo.html_url} >URL: {repo.html_url}</a></div>
         
         
