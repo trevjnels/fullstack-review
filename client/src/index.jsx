@@ -14,6 +14,23 @@ class App extends React.Component {
 
   }
 
+  componentDidMount () {
+    console.log("before ", this.state)
+  
+    $.ajax({
+      method: "GET",
+      url: 'http://localhost:1128/repos',
+      success: (results) =>{ 
+        this.setState({repos: results}) 
+        console.log("after: ",this.state)
+      },
+      error: function(){console.log("the ajax GET request failed")}
+    })
+  
+  }
+
+
+
   search (term) {
     console.log(`${term} was searched`);
 
@@ -21,10 +38,12 @@ class App extends React.Component {
       method: "POST",
       url: 'http://localhost:1128/repos',
       data: {term},
-      success: function(){console.log('u suceeeded trevs')},
+      success: function(){},
       error: function(){console.log("the ajax post request failed")}
     })
   }
+
+
 
 
     
@@ -43,8 +62,9 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
+      
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

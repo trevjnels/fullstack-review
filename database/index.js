@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcher', {useMongoClient: true });
 
 let repoSchema = mongoose.Schema({
     idRepo: Number, //github's repo ID 
     repoName: String, // username from post request from client / confirmed in sucessful git GET. in github this will be data.owner.login
-    userName: Number, //  github USERID data.owner.id
+    userName: String, //  github USERID data.owner.id
     stargazers_count: Number,
     html_url: String,  // link to the repo  //data.html_url
 });
@@ -25,22 +25,20 @@ repoArr.forEach(function(repo){
 
 })
 // console.log("SAVING REPOARR to database ", repoArr.length)
-findAll();
-}
-let findAll = () => {
 
-    Repo.find({}, (err, repos)=> {
+
+} 
+let findAll = (callback) => {
+Repo.find({}, (err, repos)=> {
       if(err){
         console.log("ERR in find all of mongoose")
         console.log(err)
       }
-      console.log("FOUND THOSE BITCHES")
-      console.log(repos.slice(0,2))
-    })
-
-
-  // console.log("SAVING REPOARR to database ", repoArr.length)
+      
+        callback(repos)
+    }).sort({ stargazers_count: -1})
   }
+
 
 module.exports = {save, findAll};
 
@@ -49,3 +47,18 @@ var  sample = {idRepo: 71012914,
     username: 'fabpot',
     stargazers_count: 0,
     html_url: 'https://github.com/fabpot/DoctrineBundle' } 
+
+  //   getNinjas : function(res){
+  //     var twisted = function(res){
+  //         return function(err, data){
+  //             if (err){
+  //                 console.log('error occured');
+  //                 return;
+  //             }
+  //             res.send('My ninjas are:\n');
+  //             console.log(data);
+  //         }
+  //     }
+  
+  //     Ninja.find({},'name skill',twisted(res));
+  // }

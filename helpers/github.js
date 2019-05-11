@@ -21,10 +21,12 @@ request.get(options, function(err, res, body){
   let json = JSON.parse(body)
   var results = [];
   json.forEach(repo => {
+
+    // console.log("OWNER", repo.owner.login)
     results.push({
       idRepo: repo.id,
       repoName: repo.name,
-      username: repo.owner.login,
+      userName: repo.owner.login,
       stargazers_count: repo.stargazers_count,
       html_url: repo.html_url
     })
@@ -34,9 +36,11 @@ request.get(options, function(err, res, body){
     return b.stargazers_count - a.stargazers_count
   }).slice(0,25)
 
-save(sortedSliced)  
+save(sortedSliced) 
+
 })
 }
+
 
 module.exports = getReposByUsername;
 
