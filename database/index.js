@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher', {useMongoClient: true });
 
 let repoSchema = mongoose.Schema({
-    idRepo: Number, //github's repo ID 
+    idRepo: {
+     type: Number,
+     unique: true
+     }, //github's repo ID 
     repoName: String, // username from post request from client / confirmed in sucessful git GET. in github this will be data.owner.login
     userName: String, //  github USERID data.owner.id
     stargazers_count: Number,
@@ -12,16 +15,26 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (repoArr) => {
-repoArr.forEach(function(repo){
-  Repo.create(repo, (err, results)=> {
-    if(err){
-      console.log('ERROR: ', err)
-      console.log('error when saving to db')
-    } else {
-      // console.log('document saved')
- 
-    }
-  })
+repoArr.forEach(function(repository){
+
+
+
+
+      Repo.create(repository, (err, results)=> {
+        if(err){
+          console.log('ERROR: ', err)
+          console.log('error when saving to db')
+        } else {
+          // console.log('document saved')
+     
+        }
+      })
+    
+
+
+
+
+
 
 })
 // console.log("SAVING REPOARR to database ", repoArr.length)

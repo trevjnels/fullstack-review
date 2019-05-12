@@ -6,7 +6,7 @@ const RepoList = (props) => (
     There are {props.repos.length} repos.
     <div className="repos flex flex-col">
     {props.repos.map((repo) => {
-      console.log(repo)
+      {/* console.log(repo) */}
       return(
         <div key={repo._id}  className="repo flex flex-row">
 

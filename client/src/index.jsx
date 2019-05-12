@@ -10,38 +10,52 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
+    this.getter=this.getter.bind(this)
     this.search = this.search.bind(this)
 
   }
 
   componentDidMount () {
-    console.log("before ", this.state)
+    // console.log("before ", this.state)
   
-    $.ajax({
-      method: "GET",
-      url: 'http://localhost:1128/repos',
-      success: (results) =>{ 
-        this.setState({repos: results}) 
-        console.log("after: ",this.state)
-      },
-      error: function(){console.log("the ajax GET request failed")}
-    })
-  
+    this.getter()
   }
 
-
-
-  search (term) {
+   search (term) {
     console.log(`${term} was searched`);
-
+    // console.log("getter" , JSON.stringify(this.getter()))
     $.ajax({
       method: "POST",
       url: 'http://localhost:1128/repos',
       data: {term},
-      success: function(){},
+      success: () => {
+        console.log("BEFORE: ", this.state)
+        this.getter();
+        console.log("After: ", this.state)
+      },
+    
       error: function(){console.log("the ajax post request failed")}
     })
+
   }
+
+  getter() {
+   $.ajax({
+    method: "GET",
+    url: 'http://localhost:1128/repos',
+    success: (results) =>{ 
+      console.log('hi hayden')
+      this.setState({repos: results}) 
+      
+      // console.log("after: ",this.state)
+    },
+    error: function(){console.log("the ajax GET request failed")}
+  })
+return;
+}
+
+
+ 
 
 
 

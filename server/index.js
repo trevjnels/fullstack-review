@@ -33,3 +33,14 @@ app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
 
+
+/* 
+todo: 
+- remove ability to post duplicates to database
+-
+
+
+
+
+
+*/
